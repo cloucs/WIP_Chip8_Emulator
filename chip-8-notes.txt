@@ -1,0 +1,16 @@
+chip-8
+$7522
+$7: ADD instruction
+$5: save value to registar 5
+$22: save 22 as value
+
+16 8-bit registars 
+	labeles from: V0 -> VF
+	values from 0x00 to 0xFF
+	VF holds results
+
+4096 bytes of memory
+address space from 0x000 to 0xFFF
+0x000-0x1FF: reserved for interpreter
+0x050-0x0A0: storage space for the 16 built-in characters (0 through F)
+0x200-0xFFF: instructions will be stored starting at 0x200, anything left after the ROM's space is free
