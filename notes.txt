@@ -1,0 +1,57 @@
+https://austinmorlan.com/posts/chip8_emulator/
+
+chip-8
+$7522
+$7: ADD instruction
+$5: save value to registar 5
+$22: save 22 as value
+
+16 8-bit registars 
+	labeles from: V0 -> VF
+	values from 0x00 to 0xFF
+	VF holds results
+
+4096 bytes of memory
+address space from 0x000 to 0xFFF
+0x000-0x1FF: reserved for interpreter
+0x050-0x0A0: storage space for the 16 built-in characters (0 through F)
+0x200-0xFFF: instructions will be stored starting at 0x200, anything left after the ROM's space is free
+
+16-bit index register
+used to store memory addresses
+
+16-bit program counter(PC)
+register that holds the address of the next instruction to execute
+
+16-level stack
+keeps track of the order of execution
+
+8-bit stack pointer(SP)
+keeps track of where the most recent value was placed in the stack
+
+8-bit delay timer
+used for timing, it will decrement at a rate of 60Hz
+
+8-bit sound timer
+#TODO: SDL implemantation
+
+16 input keys
+matching the first 16 hex values: "0" through "F"
+Keypad       Keyboard
++-+-+-+-+    +-+-+-+-+
+|1|2|3|C|    |1|2|3|4|
++-+-+-+-+    +-+-+-+-+
+|4|5|6|D|    |Q|W|E|R|
++-+-+-+-+ => +-+-+-+-+
+|7|8|9|E|    |A|S|D|F|
++-+-+-+-+    +-+-+-+-+
+|A|0|B|F|    |Z|X|C|V|
++-+-+-+-+    +-+-+-+-+
+
+64x32 monochrome display memory
+64 pixels wide and 32 pixels high
+each pixel is either on or off
+only two colors can be represented
+uint32 for each pixel
+on:		0xFFFFFFFF
+off:	0x00000000
