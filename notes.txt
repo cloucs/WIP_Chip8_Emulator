@@ -1,4 +1,7 @@
 https://austinmorlan.com/posts/chip8_emulator/
+https://multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/
+https://en.wikipedia.org/wiki/Opcode
+https://en.wikipedia.org/wiki/Bitwise_operation
 
 chip-8
 $7522
