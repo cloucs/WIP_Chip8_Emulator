@@ -1,8 +1,11 @@
+#pragma once
 //imports
-#include <cstdint>
 #include <fstream>
 #include <chrono>
 #include <random>
+#include <cstdint>
+#include <cstring>
+#include <iostream>
 
 //global variables
 const unsigned int START_ADDRESS = 0x200;
@@ -52,7 +55,7 @@ private:
 	std::default_random_engine randGen;
 	//TODO: declare RNG
 	//std::uniform_int_distribution<unsigned int> randInt;
-	//std::uniform_int_distribution<uint8_t> randByte;
+	std::uniform_int_distribution<uint8_t> randByte;
 
 	//instruction/opcode declaration
 	//00E0: CLS - clear the display
@@ -141,7 +144,7 @@ Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().cou
 
 	//TODO: initialize RNG
 	//randInt = std::uniform_int_distribution<unsigned int>(0, 255);
-	//randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
+	randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
 	//randByte = uint8_t (randInt);
 }
 
