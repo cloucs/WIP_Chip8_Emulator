@@ -38,6 +38,7 @@ public:
 
 private:
 	//member variables
+	uint8_t randByte;
 	uint8_t registers[16]{};
 	uint8_t memory[4096]{};
 	uint16_t index{};
@@ -49,7 +50,81 @@ private:
 	uint32_t video[64 * 32]{};
 	uint16_t opcode{};
 	std::default_random_engine randGen;
-	std::uniform_int_distribution<uint8_t> randByte;
+	//TODO: declare RNG
+	//std::uniform_int_distribution<unsigned int> randInt;
+	//std::uniform_int_distribution<uint8_t> randByte;
+
+	//instruction/opcode declaration
+	//00E0: CLS - clear the display
+	void OP_00E0();
+	//00EE: RET -
+	void OP_00EE();
+	//0nnn: SYS addr -
+	void OP_0nnn();
+	//1nnn: JP addr -
+	void OP_1nnn();
+	//2nnn: CALL addr -
+	void OP_2nnn();
+	//3xkk: SE Vx, byte -
+	void OP_3xkk();
+	//4xkk: SNE Vx, byte -
+	void OP_4xkk();
+	//5xy0: SE Vx, Vy -
+	void OP_5xy0();
+	//6xkk: LD Vx, byte -
+	void OP_6xkk();
+	//7xkk: ADD Vx, byte -
+	void OP_7xkk();
+	//8xy0: LD Vx, Vy -
+	void OP_8xy0();
+	//8xy1: OR Vx, Vy -
+	void OP_8xy1();
+	//8xy2: AND Vx, Vy -
+	void OP_8xy2();
+	//8xy3: XOR Vx, Vy -
+	void OP_8xy3();
+	//8xy4: ADD Vx, Vy -
+	void OP_8xy4();
+	//8xy5: SUB Vx, Vy -
+	void OP_8xy5();
+	//8xy6: SHR Vx {, Vy} -
+	void OP_8xy6();
+	//8xy7: SUBN Vx, Vy -
+	void OP_8xy7();
+	//8xyE: SHL Vx {, Vy} -
+	void OP_8xyE();
+	//9xy0: SNE Vx, Vy -
+	void OP_9xy0();
+	//Annn: LD I, addr -
+	void OP_Annn();
+	//Bnnn: JP V0, addr -
+	void OP_Bnnn();
+	//Cxkk: RND Vx, byte -
+	void OP_Cxkk();
+	//Dxyn: DRW Vx, Vy, nibble -
+	void OP_Dxyn();
+	//Ex9E: SKP Vx -
+	void OP_Ex9E();
+	//ExA1: SKNO Vx -
+	void OP_ExA1();
+	//Fx07: LD Vx, DT -
+	void OP_Fx07();
+	//Fx0A: LD Vx, K -
+	void OP_Fx0A();
+	//Fx15: LD DT, Vx -
+	void OP_Fx15();
+	//Fx18: LD ST, Vx -
+	void OP_Fx18();
+	//Fx1E: ADD I, Vx -
+	void OP_Fx1E();
+	//Fx29: LD F, Vx -
+	void OP_Fx29();
+	//Fx33: LD B, Vx -
+	void OP_Fx33();
+	//Fx55: LD [I], Vx -
+	void OP_Fx55();
+	//Fx65: LD Vx, [I] -
+	void OP_Fx65();
 };
 
 //chip8 constructor
@@ -64,8 +139,10 @@ Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().cou
 		memory[FONTSET_START_ADDRESS + i] = fontset[i];
 	}
 
-	//initialize RNG
-	randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
+	//TODO: initialize RNG
+	//randInt = std::uniform_int_distribution<unsigned int>(0, 255);
+	//randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
+	//randByte = uint8_t (randInt);
 }
 
 void Chip8::LoadROM(char const* filename)
@@ -94,6 +171,47 @@ void Chip8::LoadROM(char const* filename)
 		delete[] buffer;
 	}
 }
+
+//instruction/opcode implementation
+void Chip8::OP_00E0()
+{
+	memset(video, 0, sizeof(video));
+}
+
+void Chip8::OP_00EE() {}
+void Chip8::OP_0nnn() {}
+void Chip8::OP_1nnn() {}
+void Chip8::OP_2nnn() {}
+void Chip8::OP_3xkk() {}
+void Chip8::OP_4xkk() {}
+void Chip8::OP_5xy0() {}
+void Chip8::OP_6xkk() {}
+void Chip8::OP_7xkk() {}
+void Chip8::OP_8xy0() {}
+void Chip8::OP_8xy1() {}
+void Chip8::OP_8xy2() {}
+void Chip8::OP_8xy3() {}
+void Chip8::OP_8xy4() {}
+void Chip8::OP_8xy5() {}
+void Chip8::OP_8xy6() {}
+void Chip8::OP_8xy7() {}
+void Chip8::OP_8xyE() {}
+void Chip8::OP_9xy0() {}
+void Chip8::OP_Annn() {}
+void Chip8::OP_Bnnn() {}
+void Chip8::OP_Cxkk() {}
+void Chip8::OP_Dxyn() {}
+void Chip8::OP_Ex9E() {}
+void Chip8::OP_ExA1() {}
+void Chip8::OP_Fx07() {}
+void Chip8::OP_Fx0A() {}
+void Chip8::OP_Fx15() {}
+void Chip8::OP_Fx18() {}
+void Chip8::OP_Fx1E() {}
+void Chip8::OP_Fx29() {}
+void Chip8::OP_Fx33() {}
+void Chip8::OP_Fx55() {}
+void Chip8::OP_Fx65() {}
 
 int main(int arg, char* argv[])
 {
